@@ -1,5 +1,5 @@
 const admin = require('../functions/node_modules/firebase-admin');
-const serviceAccount = require("./Desktop/hux/functions/key.json");
+const serviceAccount = require("/Users/sai/Desktop/hux/functions/key.json");
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),

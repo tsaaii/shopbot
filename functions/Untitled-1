@@ -1,0 +1,38 @@
+const firebaseAdmin = require('firebase-admin')
+const databaseSecrets = require('/Users/sai/Desktop/key.json')
+
+firebaseAdmin.initializeApp({
+  credential: firebaseAdmin.credential.cert(databaseSecrets),
+  databaseURL: "https://nofrill_db.firebaseio.com"
+})
+
+const db = firebaseAdmin.firestore()
+const fs = require('fs')
+const csvSync = require('csv-parse/lib/sync')
+const file = '/Users/sai/Desktop/zehrs.csv'
+let data = fs.readFileSync(file)
+let responses = csvSync(data)
+
+// convert CSV data into objects
+let objects = []
+
+responses.forEach(function(response) {
+  objects.push({
+    field0: response[0]
+    field1: response[1]
+    field2: response[2]
+  })
+}, this)
+
+// set the data from objects
+return db.runTransaction(function(transaction) {
+  return transaction.get(db.collection('COLLECTIONNAME')).then(doc => {
+    objects.forEach(function(object) {
+      transaction.set(db.collection('COLLECTIONNAME').doc(), object)
+    }, this)
+  })
+}).then(function() {
+  console.log('Success!')
+}).catch(function(error) {
+  console.log('Failed', error)
+})

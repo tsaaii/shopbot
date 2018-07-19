@@ -7,10 +7,16 @@ exports.webhook = functions.https.onRequest((request, response) => {
                 `Hi Nanna `
         });
         break;
+        case 'bujji':
+        response.send({
+            speech:
+                `apakshampak kirirkiri `
+        });
+        break;
         default:
             response.send({
             speech:
-                `some bad thing `
+                `edo thappu jariginde `
             });
     }
     });

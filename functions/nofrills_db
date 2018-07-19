@@ -1,12 +1,12 @@
-const admin = require('../functions/node_modules/firebase-admin');
-const serviceAccount = require("./service-key.json");
+const data = require("/Users/sai/Desktop/zehrs.csv");
+const serviceAccount = require("/Users/sai/Desktop/key.json");
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
   databaseURL: "https://nofrill_db.firebaseio.com"
 });
 
-const data = require("./zehrs.json");
+
 
 /**
  * Data is a collection if
